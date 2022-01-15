@@ -13,6 +13,7 @@ body {
   letter-spacing: -0.03em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: #fafafa;
 }
 
 code {
@@ -21,6 +22,10 @@ code {
 }
 
 /* Normilize */
+
+html {
+  box-sizing: border-box;
+}
 
 *,
 *::before,

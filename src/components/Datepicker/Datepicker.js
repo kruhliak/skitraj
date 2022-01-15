@@ -3,14 +3,20 @@ import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import pl from "date-fns/locale/pl";
 
-export default function Datepicker() {
+export default function Datepicker({ title, onDatepickerClick }) {
   const [startDate, setStartDate] = useState(new Date());
   const day = ("0" + startDate.getDate()).slice(-2);
   const month = ("0" + (startDate.getMonth() + 1)).slice(-2);
   const year = startDate.getFullYear();
 
+  const onChange = (date) => {
+    setStartDate(date);
+    onDatepickerClick(date);
+  };
+
   return (
     <div>
+      <p>{title}</p>
       <p>{`${day}.${month}.${year}`}</p>
 
       <ReactDatePicker
@@ -37,7 +43,7 @@ export default function Datepicker() {
           </div>
         )}
         selected={startDate}
-        onChange={(date) => setStartDate(date)}
+        onChange={(date) => onChange(date)}
         minDate={new Date()}
         inline
         locale={pl}

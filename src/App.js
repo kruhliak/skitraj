@@ -1,11 +1,12 @@
-import Service from "./components/Service/Service";
+import "./App.css";
+
+import Panel from "./components/Panel/Panel";
+
 function App() {
   return (
     <div className="App">
-      <h1>Panel zamówienia</h1>
-      <div>
-        <Service />
-      </div>
+      <h1 className="title">Panel zamówienia</h1>
+      <Panel />
     </div>
   );
 }

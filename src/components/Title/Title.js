@@ -1,7 +1,5 @@
+import { Text } from "./Title.styled";
+
 export default function Title({ title }) {
-  return (
-    <div>
-      <p>{title}</p>
-    </div>
-  );
+  return <Text>{title}</Text>;
 }
