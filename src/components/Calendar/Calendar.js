@@ -1,5 +1,6 @@
+import { useState } from "react";
 import Datepicker from "../Datepicker/Datepicker";
-import { ContainerDatepicker, Container } from "./Calendar.styled";
+import { Container, ContainerTime, Time, Period } from "./Calendar.styled";
 
 export default function Calendar({
   titleFirstDate,
@@ -7,29 +8,39 @@ export default function Calendar({
   textTime,
   children,
 }) {
-  const onDateSelect = (date) => {
-    console.log(date);
+  const [time, setTime] = useState(0);
+  const [period, setPeriod] = useState(null);
+
+  const onDateSelect = (day, period) => {
+    if (day < 0) {
+      setTime(0);
+      setPeriod(null);
+      return;
+    }
+    if (day === 0) {
+      setTime(1);
+      setPeriod(period);
+      return;
+    }
+
+    setPeriod(period);
+    setTime(day + 1);
   };
   return (
     <Container>
       {children}
-      <ContainerDatepicker>
-        <Datepicker
-          title={titleFirstDate}
-          onDatepickerClick={onDateSelect}
-        ></Datepicker>
-        <Datepicker
-          title={titleSecondDate}
-          onDatepickerClick={onDateSelect}
-        ></Datepicker>
-      </ContainerDatepicker>
-      <div>
+      <Datepicker
+        onDatepickerClick={onDateSelect}
+        titleFirstDate={titleFirstDate}
+        titleSecondDate={titleSecondDate}
+      ></Datepicker>
+      <ContainerTime>
         <p>{textTime}</p>
         <div>
-          <p></p>
-          <p></p>
+          <Time>{time} dni</Time>
+          <Period>{period}</Period>
         </div>
-      </div>
+      </ContainerTime>
     </Container>
   );
 }

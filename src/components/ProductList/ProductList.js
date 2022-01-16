@@ -1,11 +1,11 @@
-import productsData from "./products-data.json";
 import Product from "../Product/Product";
-import { Container } from "./ProductList.styled";
+import { Container, Button } from "./ProductList.styled";
 
-export default function ProductList(props) {
+export default function ProductList({ text, children, productsData }) {
   return (
     <Container>
-      {props.children}
+      {children}
+      <h3>{text}</h3>
       <ul>
         {productsData.map((product) => (
           <li key={product.code}>
@@ -19,7 +19,7 @@ export default function ProductList(props) {
           </li>
         ))}
       </ul>
-      <button>Zobacz więcej</button>
+      <Button>Zobacz więcej</Button>
     </Container>
   );
 }

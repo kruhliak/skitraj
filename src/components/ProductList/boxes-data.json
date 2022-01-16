@@ -1,0 +1,23 @@
+[
+  {
+    "src": "/img/444.jpg",
+    "name": "Pakiet Studencki",
+    "producer": "8 x pudełko M/ 2 x pudełko L",
+    "code": "Kod: 2015072312867",
+    "price": "89"
+  },
+  {
+    "src": "/img/555.jpg",
+    "name": "Pakiet Rodzinny",
+    "producer": "16 x pudełko m/ 4 x pudełko L",
+    "code": "Kod: 2015072312868",
+    "price": "89"
+  },
+  {
+    "src": "/img/666.jpg",
+    "name": "Pakiet Firmowy",
+    "producer": "24 x pudełko M/ 6 x pudełko L",
+    "code": "Kod: 2015072312869",
+    "price": "89"
+  }
+]

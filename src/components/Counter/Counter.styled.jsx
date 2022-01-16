@@ -16,6 +16,11 @@ export const Container = styled.div`
     border: none;
     outline: none;
     font-weight: 500;
+
+    :hover,
+    :focus {
+      color: var(--accent-color);
+    }
   }
   & p {
     margin: 0 10px;

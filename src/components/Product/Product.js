@@ -12,8 +12,8 @@ export default function Product({ image, name, producer, code, price }) {
       <img src={image} alt={name} />
       <ContainerInfo>
         <p>{name}</p>
-        <p>Producent: {producer}</p>
-        <p>Kod: {code}</p>
+        <p>{producer}</p>
+        <p>{code}</p>
       </ContainerInfo>
       <ContainerPrice>
         <Counter />

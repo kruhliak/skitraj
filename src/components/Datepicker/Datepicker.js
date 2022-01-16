@@ -1,53 +1,125 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import pl from "date-fns/locale/pl";
 
-export default function Datepicker({ title, onDatepickerClick }) {
-  const [startDate, setStartDate] = useState(new Date());
-  const day = ("0" + startDate.getDate()).slice(-2);
-  const month = ("0" + (startDate.getMonth() + 1)).slice(-2);
-  const year = startDate.getFullYear();
+import { Container, ContainerDatepicker } from "./Datepicker.styled";
 
-  const onChange = (date) => {
+export default function Datepicker({
+  titleFirstDate,
+  titleSecondDate,
+  onDatepickerClick,
+}) {
+  const [startDate, setStartDate] = useState(new Date());
+  const [lastDate, setLastDate] = useState(new Date());
+
+  useEffect(() => {
+    const oneDay = 86400000;
+    const diffInTime = lastDate.getTime() - startDate.getTime();
+    const diffInDays =
+      diffInTime < oneDay && diffInTime > 0
+        ? 1
+        : Math.round(diffInTime / oneDay);
+
+    const dateStart = date(startDate);
+    const dateEnd = date(lastDate);
+    const period = `${dateStart} - ${dateEnd}`;
+    onDatepickerClick(diffInDays, period);
+  }, [lastDate, onDatepickerClick, startDate]);
+
+  const onFirstTimeChange = (date) => {
     setStartDate(date);
-    onDatepickerClick(date);
+  };
+
+  const onSecondTimeChange = (date) => {
+    setLastDate(date);
+  };
+
+  const date = (time) => {
+    const day = ("0" + time.getDate()).slice(-2);
+    const month = ("0" + (time.getMonth() + 1)).slice(-2);
+    const year = time.getFullYear();
+    return `${day}.${month}.${year}`;
   };
 
   return (
-    <div>
-      <p>{title}</p>
-      <p>{`${day}.${month}.${year}`}</p>
-
-      <ReactDatePicker
-        renderCustomHeader={({
-          decreaseMonth,
-          increaseMonth,
-          nextMonthButtonDisabled,
-          prevMonthButtonDisabled,
-          monthDate,
-        }) => (
-          <div>
-            <button onClick={decreaseMonth} disabled={prevMonthButtonDisabled}>
-              {"< poprzedni"}
-            </button>
-            <span className="react-datepicker__current-month">
-              {monthDate.toLocaleString("pl", {
-                month: "long",
-                year: "numeric",
-              })}
-            </span>
-            <button onClick={increaseMonth} disabled={nextMonthButtonDisabled}>
-              {"następny >"}
-            </button>
-          </div>
-        )}
-        selected={startDate}
-        onChange={(date) => onChange(date)}
-        minDate={new Date()}
-        inline
-        locale={pl}
-      />
-    </div>
+    <Container>
+      <ContainerDatepicker>
+        <h3>{titleFirstDate}</h3>
+        <p>{date(startDate)}</p>
+        <ReactDatePicker
+          renderCustomHeader={({
+            decreaseMonth,
+            increaseMonth,
+            nextMonthButtonDisabled,
+            prevMonthButtonDisabled,
+            monthDate,
+          }) => (
+            <div className="header">
+              <button
+                onClick={decreaseMonth}
+                disabled={prevMonthButtonDisabled}
+              >
+                {"< poprzedni"}
+              </button>
+              <span className="react-datepicker__current-month">
+                {monthDate.toLocaleString("pl", {
+                  month: "long",
+                  year: "numeric",
+                })}
+              </span>
+              <button
+                onClick={increaseMonth}
+                disabled={nextMonthButtonDisabled}
+              >
+                {"następny >"}
+              </button>
+            </div>
+          )}
+          onChange={(date) => onFirstTimeChange(date)}
+          minDate={new Date()}
+          inline
+          locale={pl}
+        />
+      </ContainerDatepicker>
+      <ContainerDatepicker>
+        <h3>{titleSecondDate}</h3>
+        <p>{date(lastDate)}</p>
+        <ReactDatePicker
+          renderCustomHeader={({
+            decreaseMonth,
+            increaseMonth,
+            nextMonthButtonDisabled,
+            prevMonthButtonDisabled,
+            monthDate,
+          }) => (
+            <div className="header">
+              <button
+                onClick={decreaseMonth}
+                disabled={prevMonthButtonDisabled}
+              >
+                {"< poprzedni"}
+              </button>
+              <span className="react-datepicker__current-month">
+                {monthDate.toLocaleString("pl", {
+                  month: "long",
+                  year: "numeric",
+                })}
+              </span>
+              <button
+                onClick={increaseMonth}
+                disabled={nextMonthButtonDisabled}
+              >
+                {"następny >"}
+              </button>
+            </div>
+          )}
+          onChange={(date) => onSecondTimeChange(date)}
+          minDate={startDate}
+          inline
+          locale={pl}
+        />
+      </ContainerDatepicker>
+    </Container>
   );
 }
