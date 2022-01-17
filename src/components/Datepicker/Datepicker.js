@@ -15,16 +15,26 @@ export default function Datepicker({
 
   useEffect(() => {
     const oneDay = 86400000;
-    const diffInTime = lastDate.getTime() - startDate.getTime();
-    const diffInDays =
-      diffInTime < oneDay && diffInTime > 0
-        ? 1
-        : Math.round(diffInTime / oneDay);
+
+    const utc1 = Date.UTC(
+      startDate.getFullYear(),
+      startDate.getMonth(),
+      startDate.getDate()
+    );
+
+    const utc2 = Date.UTC(
+      lastDate.getFullYear(),
+      lastDate.getMonth(),
+      lastDate.getDate()
+    );
+
+    const days = Math.floor((utc2 - utc1) / oneDay);
 
     const dateStart = date(startDate);
     const dateEnd = date(lastDate);
     const period = `${dateStart} - ${dateEnd}`;
-    onDatepickerClick(diffInDays, period);
+
+    onDatepickerClick(days, period);
   }, [lastDate, onDatepickerClick, startDate]);
 
   const onFirstTimeChange = (date) => {
