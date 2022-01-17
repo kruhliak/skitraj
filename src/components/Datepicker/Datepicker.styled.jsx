@@ -45,12 +45,16 @@ export const Container = styled.div`
   }
 
   .react-datepicker__day {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     font-weight: 400;
     font-size: 18px;
     line-height: 1.3;
     letter-spacing: -0.03em;
-    width: 25px;
-    height: 25px;
+    width: 40px;
+    height: 40px;
     margin: 0;
 
     :hover:not(.react-datepicker__day--disabled),
@@ -64,7 +68,10 @@ export const Container = styled.div`
     justify-content: space-between;
 
     :not(:last-child) {
-      margin-bottom: 13px;
+      margin-bottom: 5px;
+    }
+    .react-datepicker__day--outside-month {
+      color: #d1dce5;
     }
   }
   .react-datepicker__day--keyboard-selected,

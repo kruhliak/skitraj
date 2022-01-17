@@ -12,7 +12,6 @@ export default function Calendar({
   const [period, setPeriod] = useState(null);
 
   const onDateSelect = (day, period) => {
-    console.log(day);
     if (day < 0) {
       setTime(0);
       setPeriod(null);
